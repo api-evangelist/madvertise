@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.bluestack.app/releases
+docs: https://developers.bluestack.app/blog
+note: >-
+  Dated release notes for the BlueStack SDK (Madvertise / Improve Digital InApp
+  lineage). Semantic versioning; per-platform plugins (React Native, Unity,
+  Flutter, MAUI) track the native v6 core. Recent window only.
+scheme: semver
+current_version: 6.0.6
+entries:
+- version: 6.0.6
+  date: '2026-06'
+  channel: android-core
+  highlights: Core SDK maintenance release on the v6 line.
+- version: '6.0 (Unity)'
+  date: '2026-05-21'
+  breaking: false
+  highlights: Aligns the Unity plugin with v6 across iOS/Android; updates all adapter dependencies.
+- version: '6.0 (React Native)'
+  date: '2026-05-15'
+  breaking: false
+  highlights: Brings the React Native plugin in line with v6; updates bundled adapter dependencies.
+- version: 6.0.0
+  date: '2026-03-13'
+  breaking: true
+  highlights: >-
+    Major release with internal stability improvements and a new App Open Ads
+    format. Breaking changes for Android and iOS; dedicated migration guides
+    published for upgrading from v5.
+  migration:
+  - https://developers.bluestack.app/blog/bluestack-sdk-6_0_0/migration-guide-android
+  - https://developers.bluestack.app/blog/bluestack-sdk-6_0_0/migration-guide-ios
+- version: 5.4.0
+  date: '2026-01-23'
+  breaking: false
+  highlights: Enhanced mediation capabilities and improved adapter architecture.
+- version: 5.3.0
+  date: '2025-10-08'
+  breaking: false
+  highlights: Stability improvements, minor fixes, compatibility updates.
+- version: 5.2.0
+  date: '2025-07-02'
+  breaking: false
+  highlights: Introduced preloading for interstitial ads (static and VAST/Video formats).
+- version: 5.0.0
+  date: '2024-12-05'
+  breaking: true
+  highlights: Significant public API improvements for Interstitial, Rewarded Video, and Banner formats.

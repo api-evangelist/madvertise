@@ -1,0 +1,39 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://developers.bluestack.app/adserving/open-rtb-bid-request-api,
+  https://developers.bluestack.app/adserving/vast,
+  https://developers.bluestack.app/ (compliance badges)
+note: >-
+  Industry ad-tech standards the Madvertise / BlueStack surface implements or
+  claims. These are advertising interop standards and privacy frameworks, not a
+  formal security-certification program (no SOC 2 / ISO 27001 published), so no
+  Compliance pointer is emitted.
+standards:
+- id: openrtb-2.5
+  conforms: true
+  evidence: Bid-request endpoint documents OpenRTB 2.5 with x-openrtb-version header
+- id: vast
+  conforms: true
+  evidence: VAST video ad markup documented and returned in adm/inline responses
+- id: iab-tcf
+  conforms: true
+  evidence: SDK docs advertise IAB TCF vendor status and consent handling
+- id: iab-open-measurement
+  conforms: true
+  evidence: Open Measurement (OM SDK) viewability support advertised
+- id: prebid-server
+  conforms: true
+  evidence: Prebid Server adapter documented under /adserving
+- id: gdpr
+  conforms: true
+  evidence: gdpr request parameter + consent gating (BlockedByGDPRError)
+- id: coppa
+  conforms: true
+  evidence: SDK docs state COPPA compliance
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: HTTP errors use status codes + x-bluestack-message header, not application/problem+json
+- id: oauth2
+  conforms: false
+  evidence: No OAuth2 security scheme documented

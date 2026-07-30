@@ -1,0 +1,22 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.bluestack.app/releases
+note: >-
+  Versioning and deprecation posture for the BlueStack SDK (Madvertise / Improve
+  Digital InApp lineage). No public status page or SLA is published for the
+  mng-ads.com ad-serving endpoints.
+versioning:
+  scheme: semver
+  current: 6.0.6
+  docs: https://developers.bluestack.app/releases
+deprecation:
+  policy: >-
+    Major versions (v5 -> v6) ship breaking changes with dedicated per-platform
+    migration guides; older major lines (4.x, 5.x) retain versioned docs.
+  migration_guides:
+  - https://developers.bluestack.app/blog/bluestack-sdk-6_0_0/migration-guide-android
+  - https://developers.bluestack.app/blog/bluestack-sdk-6_0_0/migration-guide-ios
+  sunset_header: false
+sla: null
+status_page: null
+changelog: changelog/madvertise-changelog.yml

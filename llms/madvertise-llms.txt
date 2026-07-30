@@ -1,0 +1,39 @@
+# Madvertise
+
+> Madvertise is a mobile advertising / monetization brand now operating within Azerion as the "BlueStack" (Improve Digital InApp) SDK and the mng-ads.com ad-serving platform. It provides mobile in-app ad monetization for publishers (banner, interstitial, native, rewarded video, App Open) across Android, iOS, Unity, React Native, Flutter and .NET MAUI, plus programmatic ad-serving via an OpenRTB 2.5 bid-request API, a JSON ad-request API, VAST video, and a Prebid Server adapter.
+
+## APIs
+- [Ad Request API](https://developers.bluestack.app/adserving/ad-request-api-documentation): JSON ad-request endpoint at mobile.mng-ads.com (GET/POST, placement-based).
+- [OpenRTB Bid Request API](https://developers.bluestack.app/adserving/open-rtb-bid-request-api): OpenRTB 2.5 bid requests at mobile.mng-ads.com/bidrequest/{placement}.
+- [VAST](https://developers.bluestack.app/adserving/vast): VAST video ad markup.
+- [Prebid Server Adapter](https://developers.bluestack.app/adserving/prebid-server-adapter): server-side header-bidding adapter.
+
+## SDKs
+- [Android SDK](https://developers.bluestack.app/android/): com.azerion:bluestack-sdk-core (Maven).
+- [iOS SDK](https://developers.bluestack.app/ios/): pod 'BlueStack-SDK' (CocoaPods) / github.com/azerion/BlueStackSDK (SPM).
+- [Flutter plugin](https://developers.bluestack.app/flutter/): bluestack_sdk_flutter (pub.dev).
+- [React Native plugin](https://developers.bluestack.app/react-native/): @azerion/bluestack-sdk-react-native (npm).
+- [.NET MAUI plugin](https://developers.bluestack.app/maui/): BlueStack.SDK.Maui (NuGet).
+- [Unity plugin](https://developers.bluestack.app/unity/).
+
+## Docs
+- [Developer Portal](https://developers.bluestack.app/): BlueStack / Improve Digital InApp documentation.
+- [Release Notes](https://developers.bluestack.app/releases): dated SDK releases (semver, current 6.0.6).
+- [Error Handling](https://developers.bluestack.app/android/advanced-topics/error-handling): SDK error enum.
+- [Integration Requirements Tool](https://developers.bluestack.app/integration-tool).
+- [Third-party List](https://developers.bluestack.app/third-party-list).
+- [Privacy Policy](https://developers.bluestack.app/privacy-policy).
+
+## Company
+- [Azerion](https://www.azerion.com/): parent digital advertising & entertainment platform.
+- [Madvertise](https://madvertise.com/en): legacy brand site (redirects to Azerion).
+
+## Repo artifacts
+- packages/madvertise-packages.yml — six first-party mobile SDKs.
+- errors/madvertise-error-codes.yml — 14 SDK error codes.
+- changelog/madvertise-changelog.yml — recent releases.
+- conventions/madvertise-conventions.yml — ad-request / OpenRTB semantics.
+- conformance/madvertise-conformance.yml — OpenRTB 2.5, VAST, IAB TCF, OM, GDPR, COPPA.
+- authentication/madvertise-authentication.yml — placement-code / appID identity model.
+- lifecycle/madvertise-lifecycle.yml — versioning + migration guides.
+- security/madvertise-domain-security.yml — probed TLS/DNS posture.

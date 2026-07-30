@@ -1,0 +1,60 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.bluestack.app/ (Improve Digital InApp / BlueStack SDK docs) + registry probes
+note: >-
+  Madvertise's mobile SDK lineage is now published under the Azerion "BlueStack"
+  (Improve Digital InApp) brand. These are first-party mobile monetization client
+  SDKs, not server-side API clients. Package names and install lines quoted from
+  the developer docs and verified against each registry.
+packages:
+- language: kotlin
+  platform: android
+  registry: maven
+  name: com.azerion:bluestack-sdk-core
+  version: 6.0.6
+  repository: https://packagecloud.io/smartadserver/android/maven2
+  install: implementation 'com.azerion:bluestack-sdk-core:6.0.6'
+  official: true
+  source: https://developers.bluestack.app/android/
+- language: swift
+  platform: ios
+  registry: cocoapods
+  name: BlueStack-SDK
+  version: 6.0.2
+  install: pod 'BlueStack-SDK', '6.0.2'
+  spm: https://github.com/azerion/BlueStackSDK
+  official: true
+  source: https://developers.bluestack.app/ios/
+- language: dart
+  platform: flutter
+  registry: pub.dev
+  name: bluestack_sdk_flutter
+  url: https://pub.dev/packages/bluestack_sdk_flutter
+  install: flutter pub add bluestack_sdk_flutter
+  official: true
+  source: https://developers.bluestack.app/flutter/
+- language: javascript
+  platform: react-native
+  registry: npm
+  name: "@azerion/bluestack-sdk-react-native"
+  version: 6.0.2
+  url: https://www.npmjs.com/package/@azerion/bluestack-sdk-react-native
+  install: npm install @azerion/bluestack-sdk-react-native
+  official: true
+  source: https://developers.bluestack.app/react-native/
+- language: csharp
+  platform: dotnet-maui
+  registry: nuget
+  name: BlueStack.SDK.Maui
+  version: 1.1.8
+  url: https://www.nuget.org/packages/BlueStack.SDK.Maui
+  install: dotnet add package BlueStack.SDK.Maui
+  official: true
+  source: https://developers.bluestack.app/maui/
+- language: csharp
+  platform: unity
+  registry: docs
+  name: BlueStack Unity plugin
+  version: '6.0'
+  official: true
+  source: https://developers.bluestack.app/unity/

@@ -1,0 +1,14 @@
+{
+  "repo": "madvertise",
+  "feeds": [
+    {
+      "source": "https://developers.bluestack.app/adserving/",
+      "feed_url": "https://developers.bluestack.app/adserving/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-07-25T15:00:33Z"
+}

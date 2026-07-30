@@ -1,0 +1,30 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://developers.bluestack.app/adserving/ad-request-api-documentation,
+  https://developers.bluestack.app/adserving/open-rtb-bid-request-api,
+  https://developers.bluestack.app/android/
+note: >-
+  No OpenAPI is published, so this profile is captured from the developer docs
+  rather than derived. The ad-serving APIs are not key/token authenticated;
+  callers are identified by placement/publisher codes.
+summary:
+  types: [placement-code, app-id]
+  api_key_in: []
+  oauth2_flows: []
+schemes:
+- name: placement-code
+  type: identifier
+  location: query-or-path
+  detail: >-
+    Ad requests carry the zone/publisher/placement ID in the `s` query parameter
+    (mobile.mng-ads.com) or the URL path (/bidrequest/{placement_code}). This
+    identifies inventory, not an authenticated principal.
+  source: https://developers.bluestack.app/adserving/ad-request-api-documentation
+- name: app-id
+  type: identifier
+  location: sdk-init
+  detail: >-
+    Mobile SDKs initialize with a publisher appID via MobileAds.sharedInstance()
+    (iOS) / SDK init (Android) before loading ads.
+  source: https://developers.bluestack.app/ios/

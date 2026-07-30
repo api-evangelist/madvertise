@@ -1,0 +1,68 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.bluestack.app/android/advanced-topics/error-handling
+note: >-
+  SDK-level error enum returned by the BlueStack (Madvertise / Improve Digital
+  InApp) mobile SDK ad-load callbacks. Complements the ad-serving HTTP status
+  codes captured in conventions/. For the OpenRTB HTTP path, a 400 returns the
+  reason in the x-bluestack-message response header.
+envelope:
+  channel: sdk-callback
+  field: error
+error_codes:
+- code: 0
+  name: WrongPlacementIdError
+  meaning: Invalid placement ID configured
+  action: Verify placement ID settings in configuration
+- code: 1
+  name: InternetError
+  meaning: No internet connection available
+  action: Check network connectivity before retrying
+- code: 2
+  name: SDKUninitializedError
+  meaning: SDK must be initialized first
+  action: Initialize BlueStack before requesting ads
+- code: 3
+  name: RequestCappedError
+  meaning: Request limit reached; check placement capping settings
+  action: Review capping configuration or wait before retry
+- code: 4
+  name: LockedPlacementError
+  meaning: Another factory is loading an ad for this placement
+  action: Wait for current load to complete
+- code: 5
+  name: BusyFactoryError
+  meaning: Factory is processing another request
+  action: Implement backoff and retry logic
+- code: 7
+  name: NoAdError
+  meaning: No ad available to deliver
+  action: Handle gracefully; implement fallback content
+- code: 8
+  name: InterstitialCoolDownError
+  meaning: Interstitial ad is in cooldown period
+  action: Respect cooldown timing before showing next ad
+- code: 9
+  name: AlreadyShownInterstitialError
+  meaning: Only one interstitial can be shown at a time
+  action: Ensure previous interstitial dismissed before new request
+- code: 10
+  name: TimeOutError
+  meaning: Ad request timed out before response
+  action: Implement timeout handling and retry strategy
+- code: 11
+  name: AdapterNotFoundError
+  meaning: Mediation adapter not found
+  action: Verify required mediation adapters installed
+- code: 12
+  name: BlockedByGDPRError
+  meaning: Ad request blocked due to GDPR consent requirements
+  action: Obtain proper user consent before ad requests
+- code: 13
+  name: AdExpiredError
+  meaning: Ad exceeded display time limit
+  action: Request fresh ad; refresh before showing
+- code: 14
+  name: NoAdapterFoundForPlacementIdError
+  meaning: No mediation adapter configured for placement ID
+  action: Configure appropriate adapter for placement

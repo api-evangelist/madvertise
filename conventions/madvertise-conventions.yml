@@ -1,0 +1,64 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  https://developers.bluestack.app/adserving/ad-request-api-documentation,
+  https://developers.bluestack.app/adserving/open-rtb-bid-request-api
+note: >-
+  Cross-cutting request/response semantics for Madvertise's ad-serving HTTP APIs
+  (mng-ads.com) and the BlueStack mobile SDK surface.
+authentication:
+  style: none-published
+  detail: >-
+    The ad-request and OpenRTB bid-request endpoints identify the caller by a
+    placement/zone code in the query string or URL path rather than an API key
+    or OAuth token. The mobile SDKs initialize with a publisher appID.
+request:
+  ad_request:
+    endpoint: http://mobile.mng-ads.com/
+    methods: [GET, POST]
+    key_params:
+      rt: Request type (e.g. android_app, api_mediation, appsfire-v2-api)
+      s: Zone / Publisher / placement ID
+      u: URL-encoded User-Agent of the requesting device
+      v: SDK version
+      w: Ad space width (optional)
+      h: Ad space height (optional)
+      lat: Latitude (WGS84, when available)
+      lon: Longitude (WGS84, when available)
+      gdpr: GDPR scope indicator (0 or 1)
+    response_format: application/json
+  openrtb:
+    endpoint: https://mobile.mng-ads.com/bidrequest/{placement_code}
+    method: POST
+    required_headers:
+      Content-Type: application/json
+      x-openrtb-version: '2.5'
+    body: OpenRTB 2.5 BidRequest JSON (single imp object per request; in-app inventory only)
+    ad_markup_field: adm
+pagination:
+  supported: false
+  detail: Single ad / single bid response per request; no collection pagination.
+privacy_signaling:
+  gdpr_param: gdpr
+  frameworks: [IAB TCF, COPPA]
+error_signaling:
+  http_status:
+    '200': Bid available (adm carries ad markup)
+    '204': Valid request, no bid available
+    '400': Invalid bid request (reason in x-bluestack-message response header)
+    '500': Internal server error
+  sdk_callbacks: see errors/madvertise-error-codes.yml
+versioning:
+  scheme: semver
+  signal: SDK version carried in the ad-request `v` parameter and x-openrtb-version header
+  see: changelog/madvertise-changelog.yml
+cross_links:
+  errors: errors/madvertise-error-codes.yml
+  authentication: authentication/madvertise-authentication.yml
+  conformance: conformance/madvertise-conformance.yml
+  lifecycle: lifecycle/madvertise-lifecycle.yml
+idempotency:
+  supported: false
+  detail: >-
+    No documented idempotency-key mechanism. Ad and bid requests are inherently
+    non-idempotent auction calls, so no Idempotency pointer is emitted.

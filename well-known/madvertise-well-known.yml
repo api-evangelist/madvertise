@@ -1,0 +1,87 @@
+generated: '2026-08-12'
+method: probed
+source: live HTTP probes of every apis.yml host + the docs, console and parent-brand hosts
+note: >-
+  Every /.well-known/ path was probed on every host associated with Madvertise /
+  BlueStack (Improve Digital InApp) and its Azerion parent. NOT ONE returned a real
+  document, so NO WellKnown or SecurityTxt pointer is emitted in apis.yml — this file
+  records a verified absence, not a presence. Two distinct false-positive shapes were
+  observed and rejected: madvertise.com answers HTTP 200 to EVERY path with a
+  meta-refresh redirect shell to www.azerion.com, and improvedigital.com answers 200
+  with a WordPress HTML page. Neither is a document. mobile.mng-ads.com returns 403 on
+  the whole /.well-known/ tree (the ad-serving edge only answers its own ad and bid
+  routes); developers.bluestack.app returns a Docusaurus 404 shell.
+hosts:
+- host: https://mobile.mng-ads.com
+  role: api (ad request + OpenRTB bid request)
+  documents:
+  - {path: /.well-known/security.txt, status: 403, file: null}
+  - {path: /.well-known/openid-configuration, status: 403, file: null}
+  - {path: /.well-known/oauth-authorization-server, status: 403, file: null}
+  - {path: /.well-known/api-catalog, status: 403, file: null}
+  - {path: /.well-known/ai-plugin.json, status: 403, file: null}
+  - {path: /.well-known/agent-card.json, status: 403, file: null}
+  - {path: /.well-known/agent.json, status: 403, file: null}
+- host: https://developers.bluestack.app
+  role: docs (Docusaurus)
+  documents:
+  - {path: /.well-known/security.txt, status: 404, file: null}
+  - {path: /.well-known/openid-configuration, status: 404, file: null}
+  - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+  - {path: /.well-known/api-catalog, status: 404, file: null}
+  - {path: /.well-known/ai-plugin.json, status: 404, file: null}
+  - {path: /.well-known/agent-card.json, status: 404, file: null}
+  - {path: /.well-known/agent.json, status: 404, file: null}
+  - path: /llms.txt
+    status: 200
+    file: ../llms/madvertise-bluestack-llms.txt
+    real_document: true
+    note: >-
+      The one real hit anywhere on the estate — a provider-published llms.txt. It is
+      not a /.well-known/ path, so it earns LLMsTxt and not WellKnown.
+- host: https://console.bluestack.app
+  role: console (publisher login)
+  documents:
+  - {path: /.well-known/agent-card.json, status: 403, file: null}
+  - {path: /llms.txt, status: 404, file: null}
+- host: https://madvertise.com
+  role: legacy brand site
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: null
+    real_document: false
+    note: SOFT-200 — meta-refresh redirect shell to www.azerion.com, identical for every path.
+  - {path: /.well-known/agent-card.json, status: 200, file: null, real_document: false}
+  - {path: /.well-known/openid-configuration, status: 200, file: null, real_document: false}
+  - {path: /.well-known/api-catalog, status: 200, file: null, real_document: false}
+  - {path: /.well-known/ai-plugin.json, status: 200, file: null, real_document: false}
+- host: https://www.azerion.com
+  role: parent brand
+  documents:
+  - {path: /.well-known/security.txt, status: 404, file: null}
+  - {path: /.well-known/agent-card.json, status: 404, file: null}
+  - {path: /security.txt, status: 404, file: null}
+  - path: /llms.txt
+    status: 200
+    file: null
+    real_document: true
+    note: >-
+      Azerion corporate llms.txt (marketing/press pages). Real, but it is the parent
+      holding company's site index, not a Madvertise/BlueStack developer surface, so it
+      is recorded here rather than saved as this provider's llms.txt.
+- host: https://improvedigital.com
+  role: sibling brand
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: null
+    real_document: false
+    note: SOFT-200 — WordPress HTML page returned for every /.well-known/* path.
+  - {path: /.well-known/agent-card.json, status: 200, file: null, real_document: false}
+summary:
+  paths_probed: 28
+  real_documents_found: 0
+  well_known_pointer_emitted: false
+  security_txt_pointer_emitted: false
+  soft_200_hosts: [madvertise.com, improvedigital.com]

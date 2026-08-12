@@ -1,11 +1,17 @@
-generated: '2026-07-20'
+generated: '2026-08-12'
 method: searched
 source: >-
   https://developers.bluestack.app/adserving/ad-request-api-documentation,
-  https://developers.bluestack.app/adserving/open-rtb-bid-request-api
+  https://developers.bluestack.app/adserving/open-rtb-bid-request-api,
+  https://developers.bluestack.app/reporting/seller-reporting-api,
+  https://developers.bluestack.app/reporting/buyer-reporting-api,
+  https://developers.bluestack.app/reporting/mediation-reporting-api
 note: >-
   Cross-cutting request/response semantics for Madvertise's ad-serving HTTP APIs
-  (mng-ads.com) and the BlueStack mobile SDK surface.
+  (mng-ads.com), the reporting APIs, and the BlueStack mobile SDK surface. The two
+  families do not share conventions: ad serving is a form-encoded/JSON auction call with
+  no auth, while reporting is a token-authenticated JSON POST family with an
+  async submit/poll/download pattern.
 authentication:
   style: none-published
   detail: >-
@@ -35,9 +41,40 @@ request:
       x-openrtb-version: '2.5'
     body: OpenRTB 2.5 BidRequest JSON (single imp object per request; in-app inventory only)
     ad_markup_field: adm
+  reporting:
+    host: undisclosed
+    host_detail: >-
+      "All API access is over HTTPS, and accessed via the https://xxx.com domain (ask to
+      your Azerion contact)." The reference is public; the base URL is not.
+    method: POST
+    content_type: application/json
+    auth_header: 'Authorization: <token from POST /auth-reporting>'
+    endpoints:
+    - POST /auth-reporting      # mint token
+    - POST /seller-reporting    # publisher-side report
+    - POST /buyer-reporting     # advertiser / DSP-side report
+    - POST /mediation-reporting # mediation report
+    - POST /status-reporting    # poll report status
+    - POST /download-reporting  # retrieve report data
+    - GET  /campaigns           # campaign list (buyer)
+    async_pattern: >-
+      Reports are submitted, polled via /status-reporting, then retrieved via
+      /download-reporting — a submit/poll/download job model rather than a synchronous
+      query. A `output=direct` parameter is documented for inline results.
+    time_window:
+      required_params: [since, until]
+      format: unix timestamp
+      default_timezone: Europe/Paris
+      override_param: timezone
+    breakdowns_param: 'breakdowns[] (array, e.g. breakdowns[0]=DAILY)'
+    response_shape: 'JSON object with a `data` array and a `summary` object echoing since/until/breakdowns/timezone'
+    status_semantics: '"A 2xx status code indicates success, whereas a 4xx status code indicates failure."'
 pagination:
   supported: false
-  detail: Single ad / single bid response per request; no collection pagination.
+  detail: >-
+    Ad serving returns a single ad / single bid per request; no collection pagination.
+    Reporting bounds result sets by the since/until time window and breakdowns rather
+    than by cursor or offset — there is no next-page token and no documented row cap.
 privacy_signaling:
   gdpr_param: gdpr
   frameworks: [IAB TCF, COPPA]
@@ -47,7 +84,24 @@ error_signaling:
     '204': Valid request, no bid available
     '400': Invalid bid request (reason in x-bluestack-message response header)
     '500': Internal server error
+  reporting_http_status: 2xx success / 4xx failure (no per-code catalog published)
   sdk_callbacks: see errors/madvertise-error-codes.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  detail: >-
+    No rate-limit headers and no 429 semantics are documented on any surface. Throttling
+    exists only client-side as SDK capping/cooldown errors.
+  see: rate-limits/madvertise-rate-limits.yml
+request_tracing:
+  request_id_header: null
+  detail: >-
+    No correlation/request-id header is documented. On a 400 the bid endpoint returns
+    the reason in the x-bluestack-message response header, which is the only
+    server-supplied diagnostic on the surface.
+sandbox:
+  model: test-placement-ids
+  see: sandbox/madvertise-sandbox.yml
 versioning:
   scheme: semver
   signal: SDK version carried in the ad-request `v` parameter and x-openrtb-version header

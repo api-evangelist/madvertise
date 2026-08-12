@@ -1,0 +1,61 @@
+generated: '2026-08-12'
+method: searched
+source: https://developers.bluestack.app/android/advanced-topics/debugging
+note: >-
+  BlueStack (Madvertise / Improve Digital InApp) publishes a test-mode surface as
+  MAGIC TEST PLACEMENT IDs rather than a separate sandbox host — there is no
+  test-vs-live key prefix and no staging domain. The values below are quoted verbatim
+  from the debugging docs. Every ad format has a dedicated always-filling test
+  placement under one shared test app ID, and a device can be registered as a test
+  device in the Console to force debug mode. There is no test/live separation on the
+  ad-serving hosts themselves: mobile.mng-ads.com serves production traffic and the
+  test placement IDs are the only isolation mechanism.
+model:
+  separation: test-placement-ids
+  test_host: null
+  live_host: https://mobile.mng-ads.com
+  key_prefixes: null
+  detail: >-
+    No API key or token exists on the ad-serving surface, so there is no test-key
+    convention. Test mode is selected by requesting a test placement ID.
+test_app_id: '3167505'
+test_placements:
+- format: app-open
+  placement_id: /3167505/appopen
+- format: banner
+  placement_id: /3167505/banner
+- format: mrec
+  placement_id: /3167505/mrec
+- format: interstitial
+  placement_id: /3167505/interstitial
+- format: rewarded-video
+  placement_id: /3167505/rewarded
+- format: native
+  placement_id: /3167505/native
+debug_mode:
+  programmatic:
+    android: MobileAds.setDebugModeEnabled(true)
+  console_registration: >-
+    "The device is now registered as a test device and debug mode is automatically
+    enabled" once the device is registered in the BlueStack Console.
+  console_url: https://console.bluestack.app
+reference_apps:
+- platform: android
+  url: https://github.com/azerion/azerion-inapp-demo-android
+- platform: ios
+  url: https://github.com/azerion/azerion-inapp-demo-ios
+- platform: react-native
+  url: https://github.com/azerion/azerion-inapp-demo-reactnative
+- platform: flutter
+  url: https://github.com/azerion/azerion-inapp-demo-flutter
+- platform: unity
+  url: https://github.com/azerion/bluestack-demo-unity
+gaps:
+- No sandbox/test values are published for the OpenRTB bid-request API — the test
+  placement IDs are documented for the mobile SDK path only.
+- No test tokens or fixture accounts are published for the reporting APIs; those
+  require credentials issued by an Azerion contact.
+- No time simulation / test clocks.
+cross_links:
+  conventions: conventions/madvertise-conventions.yml
+  errors: errors/madvertise-error-codes.yml

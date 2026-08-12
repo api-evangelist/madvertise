@@ -1,60 +1,106 @@
-generated: '2026-07-20'
+generated: '2026-08-12'
 method: searched
-source: https://developers.bluestack.app/ (Improve Digital InApp / BlueStack SDK docs) + registry probes
+source: >-
+  https://developers.bluestack.app/ (Improve Digital InApp / BlueStack SDK docs) +
+  unauthenticated registry metadata endpoints (registry.npmjs.org, pub.dev API,
+  trunk.cocoapods.org, api.nuget.org)
 note: >-
-  Madvertise's mobile SDK lineage is now published under the Azerion "BlueStack"
-  (Improve Digital InApp) brand. These are first-party mobile monetization client
-  SDKs, not server-side API clients. Package names and install lines quoted from
-  the developer docs and verified against each registry.
+  Madvertise's mobile SDK lineage is published under the Azerion "BlueStack" (Improve
+  Digital InApp) brand. These are first-party mobile monetization CLIENT SDKs, not
+  server-side API clients — there is no server SDK for the ad-request, OpenRTB or
+  reporting APIs in any language. Package names and install lines are quoted from the
+  developer docs; every `version` + `published` pair below was read from the registry's
+  own metadata endpoint on 2026-08-12, not from the docs.
+  CURRENCY FINDINGS: the Android core ships from a private packagecloud Maven repo whose
+  maven-metadata.xml is not publicly readable (404), so no publish date can be
+  established for the flagship artifact. The .NET MAUI package has not shipped since
+  2024-07-04 — over two years behind the v6 native line. And the Unity docs instruct
+  users to pin "com.azerion.bluestack": "6.0.0", a version that DOES NOT EXIST on the
+  registry: npm carries 3.4.1 as `latest` and only 6.0.0-beta.5 on the `beta` tag.
 packages:
 - language: kotlin
   platform: android
   registry: maven
   name: com.azerion:bluestack-sdk-core
   version: 6.0.6
+  published: null
   repository: https://packagecloud.io/smartadserver/android/maven2
   install: implementation 'com.azerion:bluestack-sdk-core:6.0.6'
   official: true
   source: https://developers.bluestack.app/android/
+  note: >-
+    Not on Maven Central — distributed from a private packagecloud Maven repo. Its
+    maven-metadata.xml returns 404 unauthenticated, so `published` is null: checked, no
+    date obtainable. Version 6.0.6 is the figure the docs and release notes both state.
 - language: swift
   platform: ios
   registry: cocoapods
   name: BlueStack-SDK
   version: 6.0.2
-  install: pod 'BlueStack-SDK', '6.0.2'
+  published: '2026-07-03'
+  url: https://cocoapods.org/pods/BlueStack-SDK
+  install: pod 'BlueStack-SDK'
   spm: https://github.com/azerion/BlueStackSDK
   official: true
   source: https://developers.bluestack.app/ios/
+  note: Version + date read from trunk.cocoapods.org/api/v1/pods/BlueStack-SDK.
 - language: dart
   platform: flutter
   registry: pub.dev
   name: bluestack_sdk_flutter
+  version: 2.1.0
+  published: '2026-02-27'
   url: https://pub.dev/packages/bluestack_sdk_flutter
   install: flutter pub add bluestack_sdk_flutter
   official: true
   source: https://developers.bluestack.app/flutter/
+  note: >-
+    Plugin versions its own 2.x line independently of the v6 native core. Read from
+    pub.dev/api/packages/bluestack_sdk_flutter.
 - language: javascript
   platform: react-native
   registry: npm
   name: "@azerion/bluestack-sdk-react-native"
   version: 6.0.2
+  published: '2026-07-03'
   url: https://www.npmjs.com/package/@azerion/bluestack-sdk-react-native
   install: npm install @azerion/bluestack-sdk-react-native
   official: true
   source: https://developers.bluestack.app/react-native/
+  note: Read from registry.npmjs.org dist-tags.latest + time map.
+- language: csharp
+  platform: unity
+  registry: npm
+  name: com.azerion.bluestack
+  version: 3.4.1
+  published: '2026-02-27'
+  url: https://www.npmjs.com/package/com.azerion.bluestack
+  install: 'UPM scoped registry https://registry.npmjs.com, scope com.azerion.bluestack'
+  official: true
+  source: https://developers.bluestack.app/unity/
+  note: >-
+    DOCS/REGISTRY MISMATCH — the Unity docs instruct pinning "com.azerion.bluestack":
+    "6.0.0", but no 6.0.0 has been published. dist-tags are latest=3.4.1 (2026-02-27)
+    and beta=6.0.0-beta.5 (2026-06-15). A developer following the published manifest
+    snippet cannot resolve the package.
 - language: csharp
   platform: dotnet-maui
   registry: nuget
   name: BlueStack.SDK.Maui
   version: 1.1.8
+  published: '2024-07-04'
   url: https://www.nuget.org/packages/BlueStack.SDK.Maui
   install: dotnet add package BlueStack.SDK.Maui
   official: true
   source: https://developers.bluestack.app/maui/
-- language: csharp
-  platform: unity
-  registry: docs
-  name: BlueStack Unity plugin
-  version: '6.0'
-  official: true
-  source: https://developers.bluestack.app/unity/
+  note: >-
+    ABANDONMENT SIGNAL — last release 2024-07-04, predating the v5.2/5.3/5.4 and the
+    entire v6 native line it is supposed to wrap. Read from api.nuget.org registration
+    index.
+summary:
+  package_count: 6
+  official_count: 6
+  server_side_sdks: 0
+  registries: [maven, cocoapods, pub.dev, npm, nuget]
+  most_recent_release: '2026-07-03'
+  stalest_release: '2024-07-04'

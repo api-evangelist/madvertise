@@ -1,39 +1,60 @@
 # Madvertise
 
-> Madvertise is a mobile advertising / monetization brand now operating within Azerion as the "BlueStack" (Improve Digital InApp) SDK and the mng-ads.com ad-serving platform. It provides mobile in-app ad monetization for publishers (banner, interstitial, native, rewarded video, App Open) across Android, iOS, Unity, React Native, Flutter and .NET MAUI, plus programmatic ad-serving via an OpenRTB 2.5 bid-request API, a JSON ad-request API, VAST video, and a Prebid Server adapter.
+> Madvertise is a mobile advertising / monetization brand now operating within Azerion as the "BlueStack" (Improve Digital InApp) SDK and the mng-ads.com ad-serving platform. It provides mobile in-app ad monetization for publishers (banner, MREC, interstitial, native, rewarded video, App Open) across Android, iOS, Unity, React Native, Flutter and MAUI, plus programmatic ad-serving via an OpenRTB 2.5 bid-request API, a JSON ad-request API, VAST video, a Prebid Server adapter, and a token-authenticated reporting API family for sellers, buyers/DSPs and mediation.
 
 ## APIs
-- [Ad Request API](https://developers.bluestack.app/adserving/ad-request-api-documentation): JSON ad-request endpoint at mobile.mng-ads.com (GET/POST, placement-based).
-- [OpenRTB Bid Request API](https://developers.bluestack.app/adserving/open-rtb-bid-request-api): OpenRTB 2.5 bid requests at mobile.mng-ads.com/bidrequest/{placement}.
+- [Ad Request API](https://developers.bluestack.app/adserving/ad-request-api-documentation): JSON ad-request endpoint at mobile.mng-ads.com (GET/POST, placement-based, unauthenticated).
+- [OpenRTB Bid Request API](https://developers.bluestack.app/adserving/open-rtb-bid-request-api): OpenRTB 2.5 bid requests at mobile.mng-ads.com/bidrequest/{placement}; 200/204/400/500, errors in the x-bluestack-message header.
+- [Seller Reporting API](https://developers.bluestack.app/reporting/seller-reporting-api): publisher revenue/delivery reporting; POST /auth-reporting then /seller-reporting, /status-reporting, /download-reporting.
+- [Buyer Reporting API](https://developers.bluestack.app/reporting/buyer-reporting-api): advertiser-side reporting plus GET /campaigns.
+- [DSP Reporting API](https://developers.bluestack.app/reporting/dsp-reporting-api): DSP view over /buyer-reporting.
+- [Mediation Reporting API](https://developers.bluestack.app/reporting/mediation-reporting-api): POST /mediation-reporting with breakdowns and ad-network dimensions.
 - [VAST](https://developers.bluestack.app/adserving/vast): VAST video ad markup.
 - [Prebid Server Adapter](https://developers.bluestack.app/adserving/prebid-server-adapter): server-side header-bidding adapter.
 
+Note: the reporting APIs are documented publicly but their base host is withheld — "accessed via the https://xxx.com domain (ask to your Azerion contact)".
+
 ## SDKs
-- [Android SDK](https://developers.bluestack.app/android/): com.azerion:bluestack-sdk-core (Maven).
-- [iOS SDK](https://developers.bluestack.app/ios/): pod 'BlueStack-SDK' (CocoaPods) / github.com/azerion/BlueStackSDK (SPM).
-- [Flutter plugin](https://developers.bluestack.app/flutter/): bluestack_sdk_flutter (pub.dev).
-- [React Native plugin](https://developers.bluestack.app/react-native/): @azerion/bluestack-sdk-react-native (npm).
-- [.NET MAUI plugin](https://developers.bluestack.app/maui/): BlueStack.SDK.Maui (NuGet).
-- [Unity plugin](https://developers.bluestack.app/unity/).
+- [Android SDK](https://developers.bluestack.app/android/): com.azerion:bluestack-sdk-core 6.0.6 (packagecloud Maven).
+- [iOS SDK](https://developers.bluestack.app/ios/): pod 'BlueStack-SDK' 6.0.2 (CocoaPods) / github.com/azerion/BlueStackSDK (SPM).
+- [Flutter plugin](https://developers.bluestack.app/flutter/): bluestack_sdk_flutter 2.1.0 (pub.dev).
+- [React Native plugin](https://developers.bluestack.app/react-native/): @azerion/bluestack-sdk-react-native 6.0.2 (npm).
+- [Unity plugin](https://developers.bluestack.app/unity/): com.azerion.bluestack via UPM/npm (npm latest is 3.4.1; the docs pin 6.0.0, which is unpublished).
+- [.NET MAUI plugin](https://developers.bluestack.app/maui/): BlueStack.SDK.Maui 1.1.8 (NuGet, last released 2024-07-04).
+
+## Agents
+- [Improve Digital Publisher MCP Server](https://github.com/azerion/improvedigital-publisher-mcp-server): Azerion's first-party MCP server, six inventory/placement tools generated from a curated OpenAPI. It targets the sibling Improve Digital 360Yield publisher API (api.360yield.com), NOT the Madvertise ad-serving APIs.
+- [Provider llms.txt](https://developers.bluestack.app/llms.txt): the BlueStack docs site publishes a real llms.txt index.
+- No A2A agent card is served on any Madvertise, BlueStack or Azerion host.
 
 ## Docs
 - [Developer Portal](https://developers.bluestack.app/): BlueStack / Improve Digital InApp documentation.
+- [Console](https://console.bluestack.app): publisher login; device registration for test mode.
 - [Release Notes](https://developers.bluestack.app/releases): dated SDK releases (semver, current 6.0.6).
-- [Error Handling](https://developers.bluestack.app/android/advanced-topics/error-handling): SDK error enum.
+- [Error Handling](https://developers.bluestack.app/android/advanced-topics/error-handling): 14-code SDK error enum.
+- [Debugging / test placements](https://developers.bluestack.app/android/advanced-topics/debugging): test app ID 3167505 and per-format test placement IDs.
 - [Integration Requirements Tool](https://developers.bluestack.app/integration-tool).
 - [Third-party List](https://developers.bluestack.app/third-party-list).
 - [Privacy Policy](https://developers.bluestack.app/privacy-policy).
+- [Seller Monetization Terms](https://www.azerion.com/publishers-seller-monetization-terms-and-conditions/).
 
 ## Company
 - [Azerion](https://www.azerion.com/): parent digital advertising & entertainment platform.
-- [Madvertise](https://madvertise.com/en): legacy brand site (redirects to Azerion).
+- [Madvertise](https://madvertise.com/en): legacy brand site (meta-refresh to azerion.com).
+- [GitHub org](https://github.com/azerion): SDKs, mediation adapters, demo apps, MCP server.
 
 ## Repo artifacts
-- packages/madvertise-packages.yml — six first-party mobile SDKs.
+- packages/madvertise-packages.yml — six first-party mobile SDKs, registry-verified versions + dates.
+- mcp/madvertise-mcp.yml — the Improve Digital publisher MCP server, with its scope stated.
+- mcp/madvertise-tool-crosswalk.yml — 6 MCP tools bound 1:1 to 6 OpenAPI operationIds.
+- sandbox/madvertise-sandbox.yml — published test placement IDs and debug mode.
 - errors/madvertise-error-codes.yml — 14 SDK error codes.
 - changelog/madvertise-changelog.yml — recent releases.
-- conventions/madvertise-conventions.yml — ad-request / OpenRTB semantics.
+- conventions/madvertise-conventions.yml — ad-request, OpenRTB and reporting semantics.
 - conformance/madvertise-conformance.yml — OpenRTB 2.5, VAST, IAB TCF, OM, GDPR, COPPA.
-- authentication/madvertise-authentication.yml — placement-code / appID identity model.
-- lifecycle/madvertise-lifecycle.yml — versioning + migration guides.
+- authentication/madvertise-authentication.yml — three distinct identity models.
+- lifecycle/madvertise-lifecycle.yml — versioning, migration guides, no working status page.
+- rate-limits/madvertise-rate-limits.yml — no published limits; client-side capping only.
+- plans/madvertise-plans-pricing.yml — no published plans; revenue-share model.
+- well-known/madvertise-well-known.yml — 33 paths probed, zero real documents.
 - security/madvertise-domain-security.yml — probed TLS/DNS posture.

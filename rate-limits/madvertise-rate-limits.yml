@@ -1,0 +1,61 @@
+generated: '2026-08-12'
+method: searched
+source: >-
+  https://developers.bluestack.app/adserving/open-rtb-bid-request-api,
+  https://developers.bluestack.app/adserving/ad-request-api-documentation,
+  https://developers.bluestack.app/reporting/seller-reporting-api,
+  https://developers.bluestack.app/reporting/buyer-reporting-api,
+  https://developers.bluestack.app/reporting/mediation-reporting-api,
+  https://developers.bluestack.app/android/advanced-topics/error-handling
+limit_count: 0
+note: >-
+  NO published rate limits anywhere on the Madvertise / BlueStack surface. Every
+  ad-serving and reporting reference page was read: none states a QPS ceiling, a
+  request quota, a burst allowance, a window, or a 429 behaviour, and none documents
+  RateLimit-*, X-RateLimit-* or Retry-After response headers. For an OpenRTB bid
+  endpoint this is a material gap — QPS allocation is normally the first thing a demand
+  partner negotiates, and here it is set out of band with an Azerion contact rather
+  than published.
+  There IS throttling in the system, but it is expressed CLIENT-SIDE in the SDK rather
+  than as an HTTP rate-limit contract, so it is recorded below as throttling_signals
+  and NOT counted as a published limit.
+limits: []
+throttling_signals:
+- signal: RequestCappedError
+  channel: sdk-callback
+  code: 3
+  meaning: >-
+    "Request limit reached; check placement capping settings" — per-placement frequency
+    capping configured in the Console, surfaced to the app as an SDK error rather than
+    an HTTP 429.
+  source: https://developers.bluestack.app/android/advanced-topics/error-handling
+- signal: InterstitialCoolDownError
+  channel: sdk-callback
+  code: 8
+  meaning: Interstitial format is in a cooldown window; a further request is refused.
+  source: https://developers.bluestack.app/android/advanced-topics/error-handling
+- signal: LockedPlacementError / BusyFactoryError
+  channel: sdk-callback
+  code: 4,5
+  meaning: >-
+    Concurrency guard — one in-flight load per placement/factory. The docs' remedy is
+    "implement backoff and retry logic", which is the closest thing to a published
+    retry contract on this API.
+  source: https://developers.bluestack.app/android/advanced-topics/error-handling
+exhaustion_behaviour:
+  http_status_on_limit: null
+  retry_after_header: false
+  rate_limit_headers: []
+  detail: >-
+    The bid-request endpoint documents only 200 / 204 / 400 / 500. A 204 means "valid
+    request, no bid" — an auction outcome, not throttling — so an agent cannot
+    distinguish suppression from no-fill on this surface.
+gaps:
+- No QPS or volume ceiling published for POST /bidrequest/{placement_code}.
+- No rate-limit headers on any documented response.
+- Reporting APIs state only "A 2xx status code indicates success, whereas a 4xx status
+  code indicates failure" with no 429 semantics.
+evidence:
+- {url: 'https://developers.bluestack.app/adserving/open-rtb-bid-request-api', status: 200, finding: no rate limit or QPS statement}
+- {url: 'https://developers.bluestack.app/reporting/seller-reporting-api', status: 200, finding: rate limits not specified}
+- {url: 'https://developers.bluestack.app/reporting/mediation-reporting-api', status: 200, finding: rate limits not specified}

@@ -1,14 +1,19 @@
-generated: '2026-07-20'
+generated: '2026-08-12'
 method: searched
 source: >-
   https://developers.bluestack.app/adserving/open-rtb-bid-request-api,
   https://developers.bluestack.app/adserving/vast,
+  https://developers.bluestack.app/adserving/prebid-server-adapter,
+  https://developers.bluestack.app/reporting/,
   https://developers.bluestack.app/ (compliance badges)
 note: >-
   Industry ad-tech standards the Madvertise / BlueStack surface implements or
   claims. These are advertising interop standards and privacy frameworks, not a
-  formal security-certification program (no SOC 2 / ISO 27001 published), so no
-  Compliance pointer is emitted.
+  formal security-certification program. Re-verified 2026-08-12: probe-security-programs
+  found NO trust center and NO vulnerability-disclosure program on any Azerion or
+  BlueStack host, and no SOC 2 / ISO 27001 / PCI / HIPAA claim appears anywhere on the
+  estate — so no Compliance and no TrustCenter pointer is emitted. That absence is the
+  finding, not an unchecked field.
 standards:
 - id: openrtb-2.5
   conforms: true
@@ -36,4 +41,36 @@ standards:
   evidence: HTTP errors use status codes + x-bluestack-message header, not application/problem+json
 - id: oauth2
   conforms: false
-  evidence: No OAuth2 security scheme documented
+  evidence: >-
+    No OAuth2 on any Madvertise-branded API. OAuth2 client-credentials appears only on
+    Azerion's sibling Improve Digital 360Yield inventory API, via the publisher MCP
+    server — see mcp/madvertise-mcp.yml.
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI/Swagger is published for the ad-request, OpenRTB or reporting APIs. The
+    only OpenAPI in the Azerion GitHub org (3.0.1, "360Yield Inventory") describes the
+    sibling SSP product and is deliberately not adopted here.
+- id: mcp
+  conforms: partial
+  evidence: >-
+    Azerion ships a first-party MCP server (azerion/improvedigital-publisher-mcp-server,
+    Oct 2025) but it targets the 360Yield inventory API, not the Madvertise ad-serving
+    APIs, and is self-hosted rather than offered as a hosted endpoint.
+- id: llms-txt
+  conforms: true
+  evidence: 'https://developers.bluestack.app/llms.txt returns a real 479-line llms.txt (HTTP 200)'
+- id: a2a
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json probed on six hosts —
+    403, 404, or an HTML soft-200. No agent card exists.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: No security.txt on any host (see well-known/madvertise-well-known.yml)
+- id: soc2
+  conforms: false
+  evidence: No published certification; no trust center found on trust./security./compliance paths
+- id: iso-27001
+  conforms: false
+  evidence: No published certification found

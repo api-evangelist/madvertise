@@ -1,0 +1,83 @@
+generated: '2026-08-12'
+method: derived
+source: >-
+  https://github.com/azerion/improvedigital-publisher-mcp-server (README tool table) +
+  src/swagger/registry/improveDigitalInventorySwagger.json (operationIds verified)
+note: >-
+  Binds each tool exposed by Azerion's Improve Digital publisher MCP server to the
+  backing REST operation in the OpenAPI 3.0.1 document committed alongside it. The
+  binding is exact rather than inferred: the server generates its tools mechanically
+  from that spec, and the README publishes the tool -> METHOD /path mapping, so every
+  operationId below was grepped out of the spec and matched by path+method. Each tool's
+  real inputSchema is that operation's parameters + requestBody.
+  SCOPE WARNING: this crosswalk covers the Improve Digital 360Yield publisher inventory
+  surface, NOT the Madvertise ad-serving APIs on mobile.mng-ads.com — see
+  mcp/madvertise-mcp.yml `scope:`. The ad-request and OpenRTB APIs have no MCP tools and
+  no OpenAPI at all, so they cannot appear in rest_only[] either.
+surfaces:
+  openapi:
+    url: https://raw.githubusercontent.com/azerion/improvedigital-publisher-mcp-server/main/src/swagger/registry/improveDigitalInventorySwagger.json
+    version: 3.0.1
+    title: 360Yield Inventory
+    operations: 6
+    adopted_into_repo: false
+    note: >-
+      Not saved to this repo's openapi/ — it describes a sibling Azerion product
+      (360Yield), not Madvertise. Referenced by URL only.
+    servers_note: >-
+      servers[] is templated as {custom_server} defaulting to http://localhost:8080; the
+      README names https://api.360yield.com as the real base URL.
+  graphql: null
+  mcp:
+    url: null
+    transport: [http, stdio]
+    gated: true
+    note: >-
+      No public hosted endpoint — the server is self-hosted and requires OAuth2 client
+      credentials, so live tools/list introspection was not possible. The tool list is
+      taken from the provider's own published README, and the input schemas are read
+      from the committed spec.
+crosswalk:
+- tool: inventories_get_inventories
+  category: inventory
+  rest: [getInventories]
+  binding: rest
+  confidence: high
+- tool: inventories_get_inventory_zones
+  category: inventory
+  rest: [getInventoryZones]
+  binding: rest
+  confidence: high
+- tool: inventories_get_inventory_placements
+  category: placement
+  rest: [getInventoryPlacements]
+  binding: rest
+  confidence: high
+- tool: inventories_get_inventory_placement
+  category: placement
+  rest: [getInventoryPlacement]
+  binding: rest
+  confidence: high
+- tool: inventories_create_inventory_placement
+  category: placement
+  rest: [createInventoryPlacement]
+  binding: rest
+  confidence: high
+- tool: inventories_update_inventory_placement
+  category: placement
+  rest: [updateInventoryPlacement]
+  binding: rest
+  confidence: high
+mcp_only: []
+rest_only: []
+coverage:
+  tools_named: 6
+  tools_bound: 6
+  mcp_only: 0
+  rest_operations_total: 6
+  rest_operations_with_tool: 6
+  binding_rate: 1.0
+  note: >-
+    A rare 1:1 surface — the MCP server is a mechanical projection of the whole spec, so
+    there is no divergence in either direction. The curated spec is itself a SUBSET of
+    the full 360Yield publisher API; only the inventory slice was exposed to agents.

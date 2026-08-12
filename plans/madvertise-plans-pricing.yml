@@ -1,0 +1,28 @@
+generated: '2026-08-12'
+method: searched
+source: >-
+  https://developers.bluestack.app/docs/, https://www.azerion.com/llms.txt,
+  https://www.azerion.com/pricing/ (404)
+plan_count: 0
+note: >-
+  Madvertise / BlueStack (Improve Digital InApp) publishes NO pricing page and NO
+  self-serve plans. The model is a publisher revenue-share monetization contract, not a
+  metered API subscription: publishers are onboarded through an Azerion contact, receive
+  Console credentials, and are paid out of ad revenue. The developer docs never mention
+  price, quota, tier or overage; the corporate site's own llms.txt index carries no
+  pricing page; /pricing/ returns 404 on both the docs host and www.azerion.com. The
+  commercial terms live in the "Seller Monetization Terms and Conditions" rather than in
+  a plan table. This is a real, published-nothing zero — not an unchecked field.
+plans: []
+pricing_model:
+  type: revenue-share
+  self_serve: false
+  onboarding: contact-required
+  detail: >-
+    Publishers monetize inventory and are compensated from ad revenue; the reporting
+    APIs expose revenueEuro / revenueDollar rather than a billed usage meter.
+  terms: https://www.azerion.com/publishers-seller-monetization-terms-and-conditions/
+evidence:
+- {url: 'https://www.azerion.com/pricing/', status: 404}
+- {url: 'https://developers.bluestack.app/docs/', status: 200, finding: no pricing section in nav or footer}
+- {url: 'https://www.azerion.com/publishers-seller-monetization-terms-and-conditions/', status: 200}

@@ -8,9 +8,12 @@ description: >-
   formats through first-party SDKs for Android, iOS, Unity, React Native, Flutter
   and .NET MAUI, and connects programmatic demand through an OpenRTB 2.5
   bid-request API, a JSON ad-request API, VAST video, and a Prebid Server adapter.
-  The platform advertises IAB TCF, IAB Open Measurement, GDPR and COPPA
-  compliance. Originally a Munich-founded mobile ad network backed by Point Nine
-  Capital, Madvertise's technology now ships under Azerion / Improve Digital.
+  A separate token-authenticated reporting API family serves sellers, buyers, DSPs and
+  mediation partners with revenue and delivery data. The platform advertises IAB TCF,
+  IAB Open Measurement, GDPR and COPPA compliance. Originally a Munich-founded mobile ad
+  network backed by Point Nine Capital, Madvertise's technology now ships under
+  Azerion / Improve Digital, whose GitHub org also publishes a first-party MCP server
+  for publisher inventory management.
 url: https://raw.githubusercontent.com/api-evangelist/madvertise/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -33,7 +36,7 @@ accessModel:
 image: https://www.azerion.com/favicon.ico
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-12'
 tags:
 - Company
 - Advertising
@@ -79,6 +82,41 @@ apis:
   properties:
   - type: Documentation
     url: https://developers.bluestack.app/adserving/open-rtb-bid-request-api
+- name: Madvertise Reporting API
+  description: >-
+    Token-authenticated JSON reporting API family covering seller (publisher), buyer
+    (advertiser), DSP and mediation reporting. POST /auth-reporting mints an opaque
+    token passed bare in the Authorization header, then reports are submitted
+    (/seller-reporting, /buyer-reporting, /mediation-reporting) with unix `since`/`until`
+    bounds and a breakdowns[] array, polled via /status-reporting and retrieved via
+    /download-reporting. Returns a JSON data[] plus a summary object with metrics such as
+    requests, displays, clicks, downloads, leads and revenueEuro/revenueDollar. The
+    reference is public but the base host is withheld — "accessed via the https://xxx.com
+    domain (ask to your Azerion contact)" — so no baseURL is recorded.
+  humanURL: https://developers.bluestack.app/reporting/
+  tags:
+  - Advertising
+  - Reporting
+  - Analytics
+  - Monetization
+  x-base-url-status: undisclosed-by-provider
+  properties:
+  - type: Documentation
+    url: https://developers.bluestack.app/reporting/
+  - type: APIReference
+    name: Seller Reporting API
+    url: https://developers.bluestack.app/reporting/seller-reporting-api
+  - type: APIReference
+    name: Buyer Reporting API
+    url: https://developers.bluestack.app/reporting/buyer-reporting-api
+  - type: APIReference
+    name: DSP Reporting API
+    url: https://developers.bluestack.app/reporting/dsp-reporting-api
+  - type: APIReference
+    name: Mediation Reporting API
+    url: https://developers.bluestack.app/reporting/mediation-reporting-api
+  - type: Authentication
+    url: authentication/madvertise-authentication.yml
 common:
 - type: DeveloperPortal
   url: https://developers.bluestack.app/
@@ -119,8 +157,32 @@ common:
   url: security/madvertise-domain-security.yml
 - type: LLMsTxt
   url: llms/madvertise-llms.txt
+- type: LLMsTxt
+  name: Provider-published llms.txt (BlueStack docs, verbatim)
+  url: llms/madvertise-bluestack-llms.txt
+- type: MCPServer
+  name: Improve Digital Publisher MCP Server (Azerion; targets the sibling 360Yield inventory API)
+  url: mcp/madvertise-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/madvertise-tool-crosswalk.yml
+- type: Sandbox
+  url: sandbox/madvertise-sandbox.yml
+- type: Plans
+  url: plans/madvertise-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/madvertise-rate-limits.yml
+- type: GettingStarted
+  url: https://developers.bluestack.app/android/
+- type: Login
+  name: BlueStack Console
+  url: https://console.bluestack.app
+- type: Support
+  url: https://www.azerion.com/azerion-contact/
+- type: TermsOfService
+  name: Seller Monetization Terms and Conditions
+  url: https://www.azerion.com/publishers-seller-monetization-terms-and-conditions/
 x-enrichment:
-  date: '2026-07-20'
+  date: '2026-08-12'
   status: enriched
-  artifacts_added: 9
+  artifacts_added: 8
   pass: local-v1

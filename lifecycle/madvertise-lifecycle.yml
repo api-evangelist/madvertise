@@ -1,22 +1,60 @@
-generated: '2026-07-20'
+generated: '2026-08-12'
 method: searched
 source: https://developers.bluestack.app/releases
 note: >-
-  Versioning and deprecation posture for the BlueStack SDK (Madvertise / Improve
-  Digital InApp lineage). No public status page or SLA is published for the
-  mng-ads.com ad-serving endpoints.
+  Versioning and deprecation posture for the BlueStack SDK (Madvertise / Improve Digital
+  InApp lineage). No SLA is published for the mng-ads.com ad-serving endpoints, and no
+  working status page exists — see status_page below, which records a probed soft-200
+  rather than an unchecked null.
 versioning:
   scheme: semver
   current: 6.0.6
   docs: https://developers.bluestack.app/releases
+  per_platform: >-
+    Plugins version independently of the native core: Flutter is on its own 2.x line,
+    Unity ships 3.4.1 on npm `latest` with 6.0.0-beta on `beta`, and .NET MAUI is on
+    1.1.8. See packages/madvertise-packages.yml for the registry-verified matrix.
 deprecation:
   policy: >-
     Major versions (v5 -> v6) ship breaking changes with dedicated per-platform
-    migration guides; older major lines (4.x, 5.x) retain versioned docs.
+    migration guides; older major lines (4.x, 5.x) retain versioned docs and their own
+    release-note channels (/releases/bluestack-android-sdk-4, -5, -6 and the iOS
+    equivalents).
+  policy_url: https://developers.bluestack.app/releases
   migration_guides:
   - https://developers.bluestack.app/blog/bluestack-sdk-6_0_0/migration-guide-android
   - https://developers.bluestack.app/blog/bluestack-sdk-6_0_0/migration-guide-ios
   sunset_header: false
+  rfc8594: false
+  detail: >-
+    Deprecation is communicated as SDK migration guides only. There is NO API-side
+    deprecation contract: the ad-request, OpenRTB and reporting HTTP endpoints are
+    unversioned in path and carry neither Deprecation nor Sunset response headers.
+api_versioning:
+  ad_request: 'SDK version passed by the CALLER in the `v` query parameter — the API itself is unversioned'
+  openrtb: 'x-openrtb-version: 2.5 request header (protocol version, not API version)'
+  reporting: 'unversioned paths (/seller-reporting, /buyer-reporting, ...)'
+  improvedigital_inventory: 'URI path /publisher/v1/ (sibling surface — see mcp/madvertise-mcp.yml)'
 sla: null
-status_page: null
+status_page:
+  url: null
+  verified: false
+  probed: https://status.azerion.com
+  http_status: 200
+  finding: >-
+    SOFT-200 / FALSE POSITIVE. status.azerion.com resolves and returns HTTP 200 with a
+    StatusIQ (Site24x7) page whose body reads "No status page found with this domain
+    mapping." The DNS record and the vendor tenancy exist but no status page is
+    configured behind them. status.bluestack.app does not resolve, and
+    developers.bluestack.app/status returns 404. NO StatusPage pointer is emitted — a
+    200 is not evidence of a document.
+deprecated_operations: []
 changelog: changelog/madvertise-changelog.yml
+cross_links:
+  packages: packages/madvertise-packages.yml
+  conventions: conventions/madvertise-conventions.yml
+evidence:
+- {url: 'https://status.azerion.com', status: 200, finding: 'StatusIQ: No status page found with this domain mapping'}
+- {url: 'https://status.bluestack.app', status: 0, finding: does not resolve}
+- {url: 'https://developers.bluestack.app/status', status: 404}
+- {url: 'https://developers.bluestack.app/releases', status: 200}

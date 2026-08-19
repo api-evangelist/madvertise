@@ -2,40 +2,34 @@ generated: '2026-08-12'
 method: searched
 status: published
 source: https://github.com/azerion/improvedigital-publisher-mcp-server
-note: >-
-  A REAL first-party MCP server published by Azerion — the parent that Madvertise's
-  technology now ships under as "BlueStack / Improve Digital InApp" (the same GitHub
-  org already wired as this provider's GitHubOrganization, and the same brand that
-  titles the developer docs at developers.bluestack.app).
+note: A REAL first-party MCP server published by Azerion — the parent that Madvertise's technology now
+  ships under as "BlueStack / Improve Digital InApp" (the same GitHub org already wired as this provider's
+  GitHubOrganization, and the same brand that titles the developer docs at developers.bluestack.app).
 scope:
   covers_this_providers_apis: false
   target_api: Improve Digital / 360Yield publisher inventory management API
   target_host: https://api.360yield.com
-  statement: >-
-    OWNERSHIP + SCOPE, STATED PLAINLY: this MCP server wraps the Improve Digital
-    360Yield PUBLISHER INVENTORY API (api.360yield.com), which is Azerion's sell-side
-    inventory-management surface. It does NOT wrap the Madvertise ad-serving APIs on
-    mobile.mng-ads.com (ad request, OpenRTB bid request) and it does NOT wrap the
-    BlueStack mobile SDKs. It is recorded here because Azerion/Improve Digital is the
-    entity this repo profiles and no separate improve-digital or azerion repo exists in
-    the catalog — but an agent must not assume these tools reach Madvertise inventory.
-  spec_not_adopted: >-
-    The repo commits a real OpenAPI 3.0.1 document at
-    src/swagger/registry/improveDigitalInventorySwagger.json (4 paths, 6 operations).
-    It is deliberately NOT saved into this repo's openapi/ and NO type: OpenAPI pointer
-    is emitted, because info.title is "360Yield Inventory" — a sibling Azerion product,
-    not Madvertise. Adopting it would credit Madvertise with an API it does not ship.
+  statement: 'OWNERSHIP + SCOPE, STATED PLAINLY: this MCP server wraps the Improve Digital 360Yield PUBLISHER
+    INVENTORY API (api.360yield.com), which is Azerion''s sell-side inventory-management surface. It does
+    NOT wrap the Madvertise ad-serving APIs on mobile.mng-ads.com (ad request, OpenRTB bid request) and
+    it does NOT wrap the BlueStack mobile SDKs. It is recorded here because Azerion/Improve Digital is
+    the entity this repo profiles and no separate improve-digital or azerion repo exists in the catalog
+    — but an agent must not assume these tools reach Madvertise inventory.'
+  spec_not_adopted: 'The repo commits a real OpenAPI 3.0.1 document at src/swagger/registry/improveDigitalInventorySwagger.json
+    (4 paths, 6 operations). It is deliberately NOT saved into this repo''s openapi/ and NO type: OpenAPI
+    pointer is emitted, because info.title is "360Yield Inventory" — a sibling Azerion product, not Madvertise.
+    Adopting it would credit Madvertise with an API it does not ship.'
 server:
   name: improvedigital_mcp_server
-  transport: [http, stdio]
+  transport:
+  - http
+  - stdio
   url: null
   hosted: false
   deployment: self-hosted
-  detail: >-
-    Azerion publishes the source, not a hosted endpoint. Operators run it themselves;
-    the README documents http://<MCP_SERVER>:3000/mcp for HTTP transport and a stdio
-    launch for Claude Desktop. No public remote MCP URL is advertised, so tools/list
-    could not be introspected live.
+  detail: Azerion publishes the source, not a hosted endpoint. Operators run it themselves; the README
+    documents http://<MCP_SERVER>:3000/mcp for HTTP transport and a stdio launch for Claude Desktop. No
+    public remote MCP URL is advertised, so tools/list could not be introspected live.
   runtime: Node.js 18+ / TypeScript
   repository: https://github.com/azerion/improvedigital-publisher-mcp-server
   first_published: '2025-10-06'
@@ -43,19 +37,16 @@ server:
 authentication:
   scheme: oauth2
   flow: clientCredentials
-  detail: >-
-    "OAuth2 Client Credentials provided via environment variables" —
-    IMPROVE_DIGITAL_CLIENT_ID / IMPROVE_DIGITAL_CLIENT_SECRET. The server manages the
-    bearer token and its expiration on the caller's behalf.
+  detail: '"OAuth2 Client Credentials provided via environment variables" — IMPROVE_DIGITAL_CLIENT_ID
+    / IMPROVE_DIGITAL_CLIENT_SECRET. The server manages the bearer token and its expiration on the caller''s
+    behalf.'
   credentials_source: issued by Azerion to contracted publishers
 tool_generation:
   method: dynamic-from-openapi
-  detail: >-
-    "Tools are dynamically generated from a curated version of the API Swagger
-    document." Path and query parameters are extracted and validated, request bodies
-    are generated from the OpenAPI schemas, and $ref resolution is performed with
-    circular-reference protection — so each tool's inputSchema is the backing
-    operation's real contract rather than a hand-written guess.
+  detail: '"Tools are dynamically generated from a curated version of the API Swagger document." Path
+    and query parameters are extracted and validated, request bodies are generated from the OpenAPI schemas,
+    and $ref resolution is performed with circular-reference protection — so each tool''s inputSchema
+    is the backing operation''s real contract rather than a hand-written guess.'
   source_spec: https://raw.githubusercontent.com/azerion/improvedigital-publisher-mcp-server/main/src/swagger/registry/improveDigitalInventorySwagger.json
 tools:
 - name: inventories_get_inventories
@@ -82,7 +73,10 @@ tools:
   description: Update an existing placement.
   rest: PUT /publisher/v1/publishers/{publisherId}/inventories/{inventoryId}/zones/{zoneId}/placements/{placementId}
   source_operation: updateInventoryPlacement
-clients_documented: [Claude Desktop, Cursor, MCP Inspector]
+clients_documented:
+- Claude Desktop
+- Cursor
+- MCP Inspector
 x-evidence:
   fetched: '2026-08-12'
   repo_api: https://api.github.com/repos/azerion/improvedigital-publisher-mcp-server
@@ -92,3 +86,9 @@ x-evidence:
 cross_links:
   crosswalk: mcp/madvertise-tool-crosswalk.yml
   authentication: authentication/madvertise-authentication.yml
+deployment:
+  mode: local-stdio
+  verified: searched
+  tools: 6
+  checked: '2026-08-12'
+  source: catalog MCP census

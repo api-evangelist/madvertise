@@ -64,6 +64,113 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Madvertise is a company surfaced as a portfolio company of point-nine and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Madvertise is a mobile advertising and monetization brand now operating within Azerion as the "BlueStack" (Improve Digital InApp) mobile SDK suite and the mng-ads.com ad-serving platform. It lets mobile publishers monetize in-app inventory with banner, interstitial, native, rewarded-video and App Open ad formats through first-party SDKs for Android, iOS, Unity, React Native, Flutter and .NET MAUI, and connects programmatic demand through an OpenRTB 2.5 bid-request API, a JSON ad-request API, VAST video, and a Prebid Server adapter. A separate token-authenticated reporting API family serves sellers, buyers, DSPs and mediation partners with revenue and delivery data. The platform advertises IAB TCF, IAB Open Measurement, GDPR and COPPA compliance. Originally a Munich-founded mobile ad network backed by Point Nine Capital, Madvertise's technology now ships under Azerion / Improve Digital, whose GitHub org also publishes a first-party MCP server for publisher inventory management.
 
-Backed by: point-nine — https://madvertise.com/en
+**Areas:** Company · Advertising · AdTech · Mobile · Monetization · Programmatic · OpenRTB · SDK · Publishers
+
+## Madvertise on APIs.io
+
+Everything profiled for Madvertise is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/madvertise/](https://apis.io/providers/madvertise/)** — or go straight to one of the APIs or properties below.
+
+### APIs (3)
+
+- [Madvertise Ad Request API](https://apis.io/apis/madvertise/madvertise-ad-request-api/) — JSON ad-request endpoint (mobile.mng-ads.com) that returns a single ad (banner, interstitial, native) for a given placement, device User-Agent, SDK version…
+- [Madvertise OpenRTB Bid Request API](https://apis.io/apis/madvertise/madvertise-openrtb-bid-request-api/) — OpenRTB 2.5 bid-request endpoint (mobile.mng-ads.com/bidrequest/{placement}) for programmatic in-app demand. POST JSON with x-openrtb-version 2.5; returns…
+- [Madvertise Reporting API](https://apis.io/apis/madvertise/madvertise-reporting-api/) — Token-authenticated JSON reporting API family covering seller (publisher), buyer (advertiser), DSP and mediation reporting. POST /auth-reporting mints an…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [improvedigital_mcp_server](https://apis.io/servers/madvertise/improvedigital-mcp-server/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Madvertise Authentication](https://apis.io/security/madvertise/madvertise-authentication/)
+- [Madvertise Domain Security](https://apis.io/security/madvertise/madvertise-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Madvertise Plans Pricing](https://apis.io/plans/madvertise/madvertise-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Madvertise Rate Limits](https://apis.io/rate-limits/madvertise/madvertise-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://madvertise.com/en)
+- [Documentation](https://developers.bluestack.app/docs/)
+- [Getting started](https://developers.bluestack.app/android/)
+- [API reference](https://developers.bluestack.app/adserving/)
+- [Support](https://www.azerion.com/azerion-contact/)
+- [Changelog](https://developers.bluestack.app/releases)
+- [Blog](https://developers.bluestack.app/blog)
+- [Terms of service](https://www.azerion.com/publishers-seller-monetization-terms-and-conditions/)
+- [Privacy policy](https://developers.bluestack.app/privacy-policy)
+- [GitHub](https://github.com/azerion)
+
+## API Evangelist rating
+
+**Kin Score 35.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 71.4 |
+| Access clarity | 34.2 |
+
+**Agent readiness 11.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/madvertise/](https://apis.io/providers/madvertise/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Madvertise: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/madvertise/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
